@@ -167,6 +167,7 @@
         /* --- Experience Bar Animation Styles (Horizontal Graph) --- */
         @keyframes fillExperienceBar {
             from { width: 0; }
+            to { width: 100%; } /* Ensures the bar fills completely */
         }
 
         .experience-bar-track {
@@ -189,7 +190,8 @@
         }
 
         .experience-bar-fill.start-fill-animation {
-            animation: fillExperienceBar 2s ease-out forwards;
+            /* UPDATED DURATION TO 3s */
+            animation: fillExperienceBar 3s ease-out forwards; 
         }
 
         .milestone-marker {
@@ -443,11 +445,11 @@
 
             <div class="space-y-16">
                 <div class="text-center mb-16">
-                    <h3 class="text-lg uppercase tracking-widest text-white mb-6 thin-text">Professional Experience Length (2012 - 2025)</h3>
+                    <h3 class="text-lg uppercase tracking-widest text-white mb-6 thin-text">Professional Experience Loading Progress</h3>
                     <div class="experience-bar-track">
-                        <div id="experience-bar-fill" class="experience-bar-fill"></div>
+                        <div id="experience-bar-fill" class="experience-bar-fill start-fill-animation"></div> 
 
-                        <div class="milestone-marker" style="left: 0%;" data-index="0"></div>
+                        <div class="milestone-marker" style="left: 0%;" data-index="0"></div> 
                         <div class="milestone-marker" style="left: 25%;" data-index="1"></div>
                         <div class="milestone-marker" style="left: 75%;" data-index="2"></div>
                         <div class="milestone-marker" style="left: 87.5%;" data-index="3"></div>
@@ -609,11 +611,8 @@
             requestAnimationFrame(animate);
         }
 
-        // --- 2. Chart.js Radar Chart Configuration (Ensure functions are defined if they were not in the provided snippet) ---
-        
         // Define missing functions (assuming they were defined elsewhere)
         function initCanvas() {
-            // Your canvas initialization logic, currently handled in resize() and Particle class
             resize(); 
         }
 
@@ -694,17 +693,19 @@
             initializeSkillsChart();
 
             // ----------------------------------------------------------------------
-            // --- Preloader Fade-Out Logic (NEW CODE) ------------------------------
+            // --- Preloader Fade-Out Logic ---
             const preloader = document.getElementById('preloader');
-            
-            // Start fade out using the CSS transition
             preloader.style.opacity = '0'; 
-            
-            // Remove element from DOM after the transition is complete (700ms)
             setTimeout(() => {
                 preloader.style.display = 'none';
             }, 700); 
             // ----------------------------------------------------------------------
+            
+            // --- Immediately show the starting marker (index 0) for the experience bar ---
+            const startMarker = document.querySelector('.milestone-marker[data-index="0"]');
+            if (startMarker) {
+                startMarker.classList.add('in-view');
+            }
         };
 
 
