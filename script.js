@@ -220,6 +220,21 @@ window.onload = function() {
         animate();
     }
     initializeSkillsChart();
+
+    // ----------------------------------------------------------------------
+    // --- NEW: Preloader Fade-Out Logic (Place it here) --------------------
+    const preloader = document.getElementById('preloader');
+    
+    // Start fade out using the CSS transition
+    preloader.style.opacity = '0'; 
+    
+    // Remove element from DOM after the transition is complete (700ms)
+    setTimeout(() => {
+        preloader.style.display = 'none';
+    }, 700); 
+    // ----------------------------------------------------------------------
+
 };
+
 
 window.addEventListener('resize', initCanvas);
