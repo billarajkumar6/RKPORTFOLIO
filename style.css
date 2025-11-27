@@ -124,7 +124,17 @@ body {
 @keyframes fillExperienceBar {
     from { width: 0; }
 }
-
+/* --- NEW: Legal Icon Preloader Animation --- */
+        @keyframes pulse-balance {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+        }
+        .legal-pulse-icon {
+            /* Using the fas icon for the animation */
+            animation: pulse-balance 1.5s infinite ease-in-out;
+        }
+        /* --- END NEW CSS --- */
 .experience-bar-track {
     height: 8px;
     background: #1a1a1a;
@@ -216,4 +226,5 @@ body {
 /* Custom Alert Modal */
 #custom-alert {
     z-index: 1000;
+
 }
