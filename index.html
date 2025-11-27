@@ -56,7 +56,9 @@
             background: #555;
         }
 
-       
+        /* Circle Pulse Animation */
+        .circle-pulse {
+            position: relative;
         }
         .circle-pulse::after {
             content: '';
@@ -86,15 +88,46 @@
             opacity: 0.6;
         }
 
+        /* --- NEW: Pre-loader Dot Animation --- */
+        .dot-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px; /* Space for dots to move */
+        }
+        .loading-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            margin: 0 5px;
+            animation: bounce 0.6s infinite alternate;
+        }
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            to {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        /* --- END NEW CSS --- */
+
+
         .thin-text { font-weight: 100; }
         .regular-text { font-weight: 400; }
         .medium-text { font-weight: 500; }
         .semi-bold-text { font-weight: 600; }
-<div class="mb-8 inline-block">
-                <div class="w-32 h-48 md:w-48 md:h-72 rounded-xl border-2 border-white/70 mx-auto circle-pulse overflow-hidden relative bg-gray-900">
-                    <img src="https://raw.githubusercontent.com/billarajkumar6/RKPORTFOLIO/main/DSC04867.jpg" alt="Billu Rajakumar" class="w-full h-full object-cover">
-                </div>
-            </div>
+
         /* Custom Accent Styles (now using pure white) */
         .accent-border { border-color: #FFFFFF; }
         .accent-text { color: #FFFFFF; } /* Used for previously 'gold' key elements */
@@ -254,15 +287,21 @@
 </head>
 <body class="bg-black text-white">
 
-    <!-- Navigation -->
+    <div id="preloader" class="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center transition-opacity duration-700 opacity-100">
+        <div class="dot-container mb-4">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        <p class="text-xs text-white/50 mt-4 tracking-widest">LOADING PORTFOLIO...</p>
+    </div>
+
     <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <!-- Navigation Branding (White Accent) -->
                 <a href="#" class="text-2xl tracking-widest uppercase semi-bold-text border-white/70 border-2 px-3 py-1 hover:bg-white hover:text-black transition duration-300 text-white">BR</a>
 
                 <div class="hidden md:flex space-x-12 text-sm tracking-widest uppercase">
-                    <!-- Navigation Links (White Accent on hover) -->
                     <a href="#summary" class="hover:text-white transition-colors">Summary</a>
                     <a href="#skills" class="hover:text-white transition-colors">Competencies</a>
                     <a href="#experience" class="hover:text-white transition-colors">Experience</a>
@@ -272,73 +311,61 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Spider Web Animation -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
         <canvas id="hero-canvas"></canvas>
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <!-- Portfolio Image (White Border) -->
+            
             <div class="mb-8 inline-block">
                 <div class="w-48 h-48 rounded-full border-2 border-white/70 mx-auto circle-pulse overflow-hidden relative bg-gray-900">
                     <img src="./PP copy.jpg" alt="Billu Rajakumar" class="w-full h-full object-cover filter grayscale">
                 </div>
             </div>
-            <!-- Name: Bright White -->
+            
             <h1 class="text-3xl md:text-4xl mb-4 tracking-tight medium-text text-white uppercase">BILLU RAJAKUMAR</h1>
-            <!-- Title: Softer White -->
             <p class="text-lg md:text-xl text-white/90 mb-8 thin-text tracking-wide uppercase">Aspiring Solicitor & Legal Professional</p>
-            <!-- Separator Bar (White) -->
             <div class="h-px w-24 bg-white mx-auto mb-8"></div>
-            <!-- Summary Text (Softer White) -->
             <p class="text-sm md:text-base text-white/70 max-w-2xl mx-auto leading-relaxed regular-text">
                 Relocating to Preston, UK • BBA.LLB Student • Creative Media Expert
             </p>
 
-          
+            <a href="#contact" class="mt-10 inline-block border border-white/70 px-8 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition duration-500 text-white">
+                Contact Me
+            </a>
         </div>
     </section>
 
-    <!-- Professional Summary -->
     <section id="summary" class="py-24 bg-black relative border-t border-white/10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="order-2 md:order-1">
                     <h2 class="text-3xl md:text-4xl mb-8 semi-bold-text">Professional Summary</h2>
-                    <!-- Content text (Softer White) -->
                     <p class="text-white/70 mb-6 leading-loose font-light text-justify">
                         Aspiring solicitor and BBA.LLB student with a First Class academic record (completed 3rd year) and recent legal internship experience in India. I am seeking a temporary Paralegal or Legal Assistant role in Preston, UK.
                     </p>
                     <p class="text-white/70 mb-6 leading-loose font-light text-justify">
                         I bring 12 years of professional background in the media industry as a writer, director, and editor, with proven expertise in research, drafting, project management, and client communication.
                     </p>
-                    <!-- Highlight text (Bright White Border and Text) -->
                     <p class="text-white text-lg border-l-4 border-white pl-4 italic thin-text">
                         Relocating to Preston in December 2025. Eager to gain practical UK legal exposure while completing law studies.
                     </p>
                 </div>
                 <div class="order-1 md:order-2 flex justify-center">
-                    <!-- Abstract Graphic (White Accents) -->
                     <div class="relative w-72 h-72">
-                        <!-- Outermost Circle (smaller) -->
                         <div class="absolute inset-2 border border-white/20 rounded-full animate-[spin_12s_linear_infinite]"></div>
-                        <!-- Inner Circle (smaller) -->
                         <div class="absolute inset-10 border border-white/40 rounded-full animate-[spin_18s_linear_infinite_reverse]"></div>
 
-                        <!-- Center Icon (Smaller, White) -->
                         <div class="absolute inset-0 flex items-center justify-center">
                             <i class="fas fa-balance-scale text-3xl text-white"></i>
                         </div>
 
-                        <!-- Judiciary Icon Rotation (Gavel, White) -->
                         <div class="absolute inset-0 flex items-center justify-center" style="animation: rotateJudiciary 15s linear infinite;">
                             <i class="fas fa-gavel text-xl text-white absolute" style="top: 0; transform: translateY(-30px);"></i>
                         </div>
 
-                        <!-- Media Icon Rotation (Camera, White) -->
                         <div class="absolute inset-0 flex items-center justify-center" style="animation: rotateMedia 15s linear infinite;">
                             <i class="fas fa-camera-retro text-xl text-white absolute" style="top: 0; transform: translateY(-30px);"></i>
                         </div>
 
-                        <!-- Original 4 dots (simplified/smaller) - revolving -->
                         <div class="absolute inset-0 animate-[spin_20s_linear_infinite]">
                             <div class="absolute top-0 left-1/2 w-1.5 h-1.5 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
                             <div class="absolute bottom-0 left-1/2 w-1.5 h-1.5 bg-white rounded-full -translate-x-1/2 translate-y-1/2 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
@@ -351,31 +378,24 @@
         </div>
     </section>
 
-    <!-- Skills Vertical Bar Graphs and Radar Chart Section -->
     <section id="skills" class="py-24 bg-zinc-900 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl mb-4 semi-bold-text">Core Competencies</h2>
-                <!-- Subtitle (Softer White) -->
                 <p class="text-white/70 thin-text uppercase tracking-widest">Legal • Creative • Management</p>
             </div>
 
             <div class="grid grid-cols-1 gap-16 items-start">
-                <!-- Vertical Bar Graphs Section (All set to 95% for 'good knowledge') -->
                 <div class="flex flex-wrap justify-center gap-x-8 gap-y-12">
-                    <!-- Research & Analysis (95%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
-                            <!-- Bar Fill Percentage (White) -->
                             <div class="v-bar-fill start-v-bar-animation" style="height: 95%;">
                                 <span class="v-bar-percentage medium-text text-white">95%</span>
                             </div>
                         </div>
-                        <!-- Label (Softer White) -->
-                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Research & Analysis</p>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Legal Research</p>
                     </div>
-                    <!-- Drafting (95%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
@@ -385,7 +405,6 @@
                         </div>
                         <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Drafting</p>
                     </div>
-                    <!-- Compliance (90%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
@@ -395,7 +414,6 @@
                         </div>
                         <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Compliance</p>
                     </div>
-                    <!-- Client Relations (95%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
@@ -405,7 +423,6 @@
                         </div>
                         <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Client Relations</p>
                     </div>
-                    <!-- Project Management (100%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
@@ -413,9 +430,8 @@
                                 <span class="v-bar-percentage medium-text text-white">100%</span>
                             </div>
                         </div>
-                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Project Management</p>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Project Mgmt</p>
                     </div>
-                    <!-- Adobe Creative (85%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
@@ -425,7 +441,6 @@
                         </div>
                         <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Creative Suite</p>
                     </div>
-                    <!-- Digital Tools (90%) -->
                     <div class="v-bar-group text-center">
                         <div class="v-bar-container mx-auto">
                             <div class="v-bar-base"></div>
@@ -437,7 +452,6 @@
                     </div>
                 </div>
 
-                <!-- Chart Container (Spider Web Visual) - White Lines -->
                 <div class="pt-16 max-w-lg mx-auto w-full">
                     <h3 class="text-center text-xl mb-6 semi-bold-text border-b border-white/20 pb-2">Integrated Skill Profile</h3>
                     <div class="bg-black p-4 rounded-xl border border-white/10 shadow-2xl">
@@ -448,20 +462,16 @@
         </div>
     </section>
 
-    <!-- Experience & Education TIMELINE REDESIGN (Animated Horizontal Bar) -->
     <section id="experience" class="py-24 bg-black relative border-t border-white/10">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl mb-16 text-center semi-bold-text">Education & Experience</h2>
 
             <div class="space-y-16">
-                <!-- 1. The Animated Horizontal Bar/Graph -->
                 <div class="text-center mb-16">
-                    <!-- Text (White) -->
                     <h3 class="text-lg uppercase tracking-widest text-white mb-6 thin-text">Professional Experience Length (2012 - 2025)</h3>
                     <div class="experience-bar-track">
                         <div id="experience-bar-fill" class="experience-bar-fill"></div>
 
-                        <!-- Milestone Markers (White) -->
                         <div class="milestone-marker" style="left: 0%;" data-index="0"></div>
                         <div class="milestone-marker" style="left: 25%;" data-index="1"></div>
                         <div class="milestone-marker" style="left: 75%;" data-index="2"></div>
@@ -474,17 +484,13 @@
                     </div>
                 </div>
 
-                <!-- 2. Detailed Blocks (Animated Fade-In + Animated Bar Title) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
 
-                    <!-- Item 1: Legal Internship -->
                     <div class="animated-detail-card" data-index="5">
                         <div class="card-title-container">
-                            <!-- Title (White) -->
                             <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-gavel"></i> Legal Intern</h3>
                             <div class="card-title-bar"></div>
                         </div>
-                        <!-- Content (Softer White) -->
                         <p class="text-sm text-white/70 mb-3">July 2025 | Advocate Chambers, Hyderabad</p>
                         <ul class="list-disc list-inside text-white/70 font-light space-y-1 text-sm">
                             <li>Assisted in legal research, case law analysis, and client brief preparation.</li>
@@ -492,27 +498,21 @@
                         </ul>
                     </div>
 
-                    <!-- Item 2: Law Education -->
                     <div class="animated-detail-card" data-index="6">
                          <div class="card-title-container">
-                             <!-- Title (White) -->
-                            <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-graduation-cap"></i> BBA.LLB (Law)</h3>
+                             <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-graduation-cap"></i> BBA.LLB (Law)</h3>
                             <div class="card-title-bar"></div>
                         </div>
-                        <!-- Content (Softer White) -->
                         <p class="text-sm text-white/70 mb-3">Expected 2027 | Osmania University, Hyderabad</p>
                         <p class="text-white/70 font-light text-sm mb-2">Completed 3rd Year (6 Semesters) in First Class.</p>
-                        <p class="text-white/50 font-light text-xs italic">Focus: Contract Law, Company Law, Documentation.</p>
+                        <p class="text-white/50 font-light text-xs italic">Focus: Contract Law, Company Law, Legal Drafting.</p>
                     </div>
 
-                    <!-- Item 3: Professional Exp (Summary) -->
                     <div class="animated-detail-card" data-index="7">
                          <div class="card-title-container">
-                            <!-- Title (White) -->
                             <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-video"></i> Sr. Editor & Post-Production Head</h3>
                             <div class="card-title-bar"></div>
                         </div>
-                        <!-- Content (Softer White) -->
                         <p class="text-sm text-white/70 mb-3">2012 - 2025 | Various Media Companies</p>
                         <ul class="list-disc list-inside text-white/70 font-light space-y-1 text-sm">
                             <li>Managed teams and sensitive projects (DBS, IKEA, G20 Summit).</li>
@@ -520,14 +520,11 @@
                         </ul>
                     </div>
 
-                    <!-- Item 4: V.E. Education -->
                     <div class="animated-detail-card" data-index="8">
                         <div class="card-title-container">
-                            <!-- Title (White) -->
                             <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-paint-brush"></i> Bachelor's Visual Effects</h3>
                             <div class="card-title-bar"></div>
                         </div>
-                        <!-- Content (Softer White) -->
                         <p class="text-sm text-white/70 mb-3">2007 - 2011 | IACG, Hyderabad</p>
                         <p class="text-white/70 font-light text-sm mb-2">Developed core Adobe Creative Suite expertise.</p>
                     </div>
@@ -536,33 +533,28 @@
         </div>
     </section>
 
-    <!-- Footer / Contact -->
     <footer id="contact" class="bg-black pt-20 pb-10 border-t border-white/70 text-center">
         <div class="max-w-4xl mx-auto px-4">
-            <!-- Header (Softer White) -->
             <h2 class="text-3xl font-light mb-8 text-white/90">Let's Connect</h2>
-            <!-- Text (Softer White) -->
             <p class="text-white/70 mb-10 max-w-xl mx-auto font-light">
                 Available immediately upon relocation to Preston, UK in December. Open to entry-level paralegal and legal assistant roles.
             </p>
 
-            <!-- Contact Buttons (White Accent) -->
-            <<div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
-    <a href="mailto:billarajkumar6@gmail.com" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
-        <i class="fas fa-envelope"></i> billarajkumar6@gmail.com
-    </a>
-    <a href="tel:+919573668915" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
-        <i class="fas fa-phone"></i> +91-9573668915
-    </a>
-    <a href="https://www.linkedin.com/in/rajkumar-billa-7a979871/" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
-        <i class="fab fa-linkedin"></i> LinkedIn Profile
-    </a>
-    <a href="https://drive.google.com/drive/folders/1bkl_zDt8AKuH4wdlgobjJUBu9HBJGHU6" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
-        <i class="fab fa-google-drive"></i> View Portfolio
-    </a>
-</div>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
+                <a href="mailto:billarajkumar6@gmail.com" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+                    <i class="fas fa-envelope"></i> billarajkumar6@gmail.com
+                </a>
+                <a href="#" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+                    <i class="fas fa-phone"></i> +91-9573668915
+                </a>
+                <a href="#" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+                    <i class="fab fa-linkedin"></i> LinkedIn Profile
+                </a>
+                <a href="#" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+                    <i class="fab fa-google-drive"></i> View Portfolio
+                </a>
+            </div>
 
-            <!-- Footer Text (Faded White) -->
             <p class="text-white/50 text-xs tracking-widest uppercase">
                 &copy; 2025 Billu Rajakumar. All Rights Reserved.
             </p>
@@ -649,12 +641,12 @@
             type: 'radar',
             data: {
                 labels: [
-                    'Data Driven',
-                    'Relationship Management',
-                    'Deadlines',
-                    'Asset Development',
+                    'Legal Research & Drafting',
+                    'Client Communication.',
+                    'Project Deadlines',
+                    'Adobe Creative Suite',
                     'Case Analysis',
-                    'Productivity '
+                    'Digital Tools '
                 ],
                 datasets: [{
                     label: 'Proficiency Level',
@@ -794,38 +786,22 @@
 
         // Initial calls
         window.onload = function() {
-            animate(); // Start the spider web animation
-            checkAnimations(); // Check animations on load
+            // Start the spider web animation
+            animate(); 
+            // Check animations on load
+            checkAnimations(); 
+            
+            // --- FADE OUT PRE-LOADER ---
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                // Start the fade out transition
+                preloader.style.opacity = '0';
+                // Remove the element from the DOM after the transition completes (700ms)
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 700);
+            }
         }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
