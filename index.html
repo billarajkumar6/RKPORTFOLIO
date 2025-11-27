@@ -77,18 +77,18 @@
             100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
         }
 
-        /* Hero Canvas - MODIFIED FOR FULL-PAGE COVERAGE */
+        /* Hero Canvas */
         #hero-canvas {
-            position: fixed; /* Stays fixed as the user scrolls */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -10; /* Ensures it is behind all page content */
+            z-index: 0;
             opacity: 0.6;
         }
 
-        /* --- Pre-loader Dot Animation --- */
+        /* --- NEW: Pre-loader Dot Animation --- */
         .dot-container {
             display: flex;
             justify-content: center;
@@ -120,7 +120,7 @@
                 opacity: 1;
             }
         }
-        /* --- END Pre-loader CSS --- */
+        /* --- END NEW CSS --- */
 
 
         .thin-text { font-weight: 100; }
@@ -287,8 +287,6 @@
 </head>
 <body class="bg-black text-white">
 
-    <canvas id="hero-canvas"></canvas>
-
     <div id="preloader" class="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center transition-opacity duration-700 opacity-100">
         <div class="dot-container mb-4">
             <div class="loading-dot"></div>
@@ -314,11 +312,12 @@
     </nav>
 
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
             
             <div class="mb-8 inline-block">
-                <div class="w-32 h-32 md:w-48 md:h-48 rounded-full border-2 border-white/70 mx-auto circle-pulse overflow-hidden relative bg-gray-900">
-                    <img src="DSC04860.jpg" alt="Billu Rajakumar" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/400x400/111827/ffffff?text=BR';">
+                <div class="w-48 h-48 rounded-full border-2 border-white/70 mx-auto circle-pulse overflow-hidden relative bg-gray-900">
+                    <img src="./PP copy.jpg" alt="Billu Rajakumar" class="w-full h-full object-cover filter grayscale">
                 </div>
             </div>
             
@@ -574,15 +573,11 @@
 
         function resize() {
             width = canvas.width = window.innerWidth;
-            height = canvas.height = document.documentElement.scrollHeight; // Set height to full document height
-            // Recalculate particle positions on resize to keep them visible
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
+            height = canvas.height = window.innerHeight;
         }
         window.addEventListener('resize', resize);
-        
+        resize();
+
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
@@ -596,17 +591,14 @@
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Simple boundary check: keep particles within the current viewport for a fixed canvas
-                if (this.x < 0 || this.x > window.innerWidth) this.vx *= -1;
-                if (this.y < 0 || this.y > window.innerHeight) this.vy *= -1;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
             }
 
             draw() {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                 ctx.beginPath();
-                // Ensure particles are drawn relative to the fixed viewport
-                const viewportY = this.y - (document.documentElement.scrollTop || document.body.scrollTop);
-                ctx.arc(this.x, viewportY, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
@@ -616,8 +608,7 @@
         }
 
         function animate() {
-            // Because the canvas is fixed, we only need to clear the viewport area
-            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            ctx.clearRect(0, 0, width, height);
 
             particles.forEach(p => {
                 p.update();
@@ -634,13 +625,8 @@
                         ctx.beginPath();
                         ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / connectionDistance})`;
                         ctx.lineWidth = 0.5;
-                        
-                        // Draw lines using fixed viewport coordinates
-                        const p1y = particles[i].y - (document.documentElement.scrollTop || document.body.scrollTop);
-                        const p2y = particles[j].y - (document.documentElement.scrollTop || document.body.scrollTop);
-
-                        ctx.moveTo(particles[i].x, p1y);
-                        ctx.lineTo(particles[j].x, p2y);
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
                 }
@@ -800,9 +786,10 @@
 
         // Initial calls
         window.onload = function() {
-            resize(); // Initial resize to cover the full document height
-            animate(); // Start the spider web animation
-            checkAnimations(); // Check animations on load
+            // Start the spider web animation
+            animate(); 
+            // Check animations on load
+            checkAnimations(); 
             
             // --- FADE OUT PRE-LOADER ---
             const preloader = document.getElementById('preloader');
