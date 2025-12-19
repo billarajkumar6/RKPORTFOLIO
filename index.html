@@ -1,134 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billu Rajakumar | Professional Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        black: '#000000',
+                        white: '#ffffff',
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            800: '#1f2937',
+                            900: '#111827',
+                        },
+                        // Redefining 'accent' color as pure white for consistency
+                        accent: '#FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #6c757d;
-            --dark-color: #212529;
-            --light-bg: #f8f9fa;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--dark-color);
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        .hero-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
-        .hero-image-wrapper {
-            position: relative;
-            padding: 20px;
+       
         }
-
-        .profile-img {
-            border: 8px solid white;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 100%;
-            height: auto;
-        }
-
-        .experience-badge {
+        .circle-pulse::after {
+            content: '';
             position: absolute;
-            bottom: 40px;
-            right: 0;
-            background: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+        }
+
+        /* Hero Canvas */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        .thin-text { font-weight: 100; }
+        .regular-text { font-weight: 400; }
+        .medium-text { font-weight: 500; }
+        .semi-bold-text { font-weight: 600; }
+<div class="mb-8 inline-block">
+                <div class="w-32 h-48 md:w-48 md:h-72 rounded-xl border-2 border-white/70 mx-auto circle-pulse overflow-hidden relative bg-gray-900">
+                    <img src="https://raw.githubusercontent.com/billarajkumar6/RKPORTFOLIO/main/DSC04867.jpg" alt="Billu Rajakumar" class="w-full h-full object-cover">
+                </div>
+            </div>
+        /* Custom Accent Styles (now using pure white) */
+        .accent-border { border-color: #FFFFFF; }
+        .accent-text { color: #FFFFFF; } /* Used for previously 'gold' key elements */
+
+        /* Custom animation for rotating icons in Summary section */
+        @keyframes rotateMedia {
+            0% { transform: rotate(0deg) translate(80px) rotate(0deg); }
+            100% { transform: rotate(360deg) translate(80px) rotate(-360deg); }
+        }
+        @keyframes rotateJudiciary {
+            0% { transform: rotate(180deg) translate(80px) rotate(-180deg); }
+            100% { transform: rotate(540deg) translate(80px) rotate(-540deg); }
+        }
+
+        /* Vertical Bar Styles (for Skills) */
+        .v-bar-container {
+            height: 150px;
+            width: 50px;
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .experience-badge .number {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .experience-badge .text {
-            font-size: 0.8rem;
-            line-height: 1.2;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: var(--dark-color);
+            align-items: flex-end;
+            justify-content: center;
+            position: relative;
             margin: 0 10px;
         }
-
-        .section-padding {
-            padding: 80px 0;
+        .v-bar-base {
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            position: absolute;
+            bottom: 0;
+            border-radius: 4px;
+        }
+        .v-bar-fill {
+            width: 100%;
+            background-color: #FFFFFF; /* Changed from Gold */
+            border-radius: 4px;
+            /* Animation will be triggered by JS scroll listener */
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        @keyframes loadVBar {
+            from { height: 0; }
+        }
+        .v-bar-fill.start-v-bar-animation {
+            animation: loadVBar 1.5s ease-out forwards;
+        }
+        .v-bar-percentage {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
-        .skill-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid #eee;
-            transition: transform 0.3s ease;
+        /* --- Experience Bar Animation Styles (Horizontal Graph) --- */
+        @keyframes fillExperienceBar {
+            from { width: 0; }
         }
 
-        .skill-card:hover {
-            transform: translateY(-5px);
+        .experience-bar-track {
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            position: relative;
+            margin-bottom: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .experience-bar-fill {
+            height: 100%;
+            /* Changed gradient to white */
+            background: linear-gradient(90deg, #1a1a1a 0%, #FFFFFF 100%);
+            border-radius: 4px;
+            width: 0; /* Start at 0 width, animation will set to 100% */
+        }
+
+        .experience-bar-fill.start-fill-animation {
+             animation: fillExperienceBar 2s ease-out forwards;
+        }
+
+        .milestone-marker {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background: #FFFFFF; /* Changed from Gold */
+            border: 3px solid #000;
+            border-radius: 50%;
+            cursor: pointer;
+            /* Changed shadow to white/light */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        .milestone-marker.in-view {
+             opacity: 1;
+             animation: bounceIn 0.5s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* --- New Unified Detail Card Style --- */
+        .animated-detail-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            padding: 1.5rem;
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            background-color: #0a0a0a;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .animated-detail-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-title-container {
+            position: relative;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .card-title-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background-color: #FFFFFF; /* Changed from Gold */
+            width: 0;
+            transition: width 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        .animated-detail-card.in-view .card-title-bar {
+            width: 100%;
+        }
+
+        /* --- Footer Button Animation Styles --- */
+        .contact-btn:hover {
+            /* Changed shadow to white */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
         }
     </style>
 </head>
-<body>
+<body class="bg-black text-white">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="#">BR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#summary">Summary</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Competencies</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Navigation Branding (White Accent) -->
+                <a href="#" class="text-2xl tracking-widest uppercase semi-bold-text border-white/70 border-2 px-3 py-1 hover:bg-white hover:text-black transition duration-300 text-white">BR</a>
+
+                <div class="hidden md:flex space-x-12 text-sm tracking-widest uppercase">
+                    <!-- Navigation Links (White Accent on hover) -->
+                    <a href="#summary" class="hover:text-white transition-colors">Summary</a>
+                    <a href="#skills" class="hover:text-white transition-colors">Competencies</a>
+                    <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-5 mb-5 mb-lg-0">
-                    <div class="hero-image-wrapper">
-                        <img src="./PP copy.jpg" alt="Billu Rajakumar" class="img-fluid rounded-circle profile-img">
-                        <div class="experience-badge">
-                            <span class="number">12+</span>
-                            <span class="text">Years<br>Exp.</span>
-                        </div>
-                    </div>
+    <!-- Hero Section with Spider Web Animation -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <!-- Portfolio Image (White Border) -->
+            <div class="mb-8 inline-block">
+                <div class="w-48 h-48 rounded-full border-2 border-white/70 mx-auto circle-pulse overflow-hidden relative bg-gray-900">
+                    <img src="./PP copy.jpg" alt="Billu Rajakumar" class="w-full h-full object-cover filter grayscale">
                 </div>
-                <div class="col-lg-7">
-                    <div class="hero-content">
-                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-3">Available for Hire</span>
-                        <h1 class="display-3 fw-bold mb-4">BILLU <span class="text-primary">RAJAKUMAR</span></h1>
-                        <p class="lead mb-4 text-secondary">Aspiring Solicitor & Legal Professional</p>
-                        <div class="mb-5">
-                            <div class="d-flex align-items-center mb-2"><i class="bi bi-geo-alt me-2 text-primary"></i>Relocating to Preston, UK</div>
-                            <div class="d-flex align-items-center mb-2"><i class="bi bi-mortarboard me-2 text-primary"></i>BBA.LLB Student</div>
-                            <div class="d-flex align-items-center"><i class="bi bi-brush me-2 text-primary"></i>Creative Media Expert</div>
+            </div>
+            <!-- Name: Bright White -->
+            <h1 class="text-3xl md:text-4xl mb-4 tracking-tight medium-text text-white uppercase">BILLU RAJAKUMAR</h1>
+            <!-- Title: Softer White -->
+            <p class="text-lg md:text-xl text-white/90 mb-8 thin-text tracking-wide uppercase">Aspiring Solicitor & Legal Professional</p>
+            <!-- Separator Bar (White) -->
+            <div class="h-px w-24 bg-white mx-auto mb-8"></div>
+            <!-- Summary Text (Softer White) -->
+            <p class="text-sm md:text-base text-white/70 max-w-2xl mx-auto leading-relaxed regular-text">
+                Relocating to Preston, UK • BBA.LLB Student • Creative Media Expert
+            </p>
+
+          
+        </div>
+    </section>
+
+    <!-- Professional Summary -->
+    <section id="summary" class="py-24 bg-black relative border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1">
+                    <h2 class="text-3xl md:text-4xl mb-8 semi-bold-text">Professional Summary</h2>
+                    <!-- Content text (Softer White) -->
+                    <p class="text-white/70 mb-6 leading-loose font-light text-justify">
+                        Aspiring solicitor and BBA.LLB student with a First Class academic record (completed 3rd year) and recent legal internship experience in India. I am seeking a temporary Paralegal or Legal Assistant role in Preston, UK.
+                    </p>
+                    <p class="text-white/70 mb-6 leading-loose font-light text-justify">
+                        I bring 12 years of professional background in the media industry as a writer, director, and editor, with proven expertise in research, drafting, project management, and client communication.
+                    </p>
+                    <!-- Highlight text (Bright White Border and Text) -->
+                    <p class="text-white text-lg border-l-4 border-white pl-4 italic thin-text">
+                        Relocating to Preston in December 2025. Eager to gain practical UK legal exposure while completing law studies.
+                    </p>
+                </div>
+                <div class="order-1 md:order-2 flex justify-center">
+                    <!-- Abstract Graphic (White Accents) -->
+                    <div class="relative w-72 h-72">
+                        <!-- Outermost Circle (smaller) -->
+                        <div class="absolute inset-2 border border-white/20 rounded-full animate-[spin_12s_linear_infinite]"></div>
+                        <!-- Inner Circle (smaller) -->
+                        <div class="absolute inset-10 border border-white/40 rounded-full animate-[spin_18s_linear_infinite_reverse]"></div>
+
+                        <!-- Center Icon (Smaller, White) -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-balance-scale text-3xl text-white"></i>
                         </div>
-                        <div class="cta-btns">
-                            <a href="#contact" class="btn btn-primary btn-lg px-4 me-3">Contact Me</a>
-                            <a href="https://drive.google.com/drive/folders/1bkl_zDt8AKuH4wdlgobjJUBu9HBJGHU6" target="_blank" class="btn btn-outline-dark btn-lg px-4">View Portfolio</a>
+
+                        <!-- Judiciary Icon Rotation (Gavel, White) -->
+                        <div class="absolute inset-0 flex items-center justify-center" style="animation: rotateJudiciary 15s linear infinite;">
+                            <i class="fas fa-gavel text-xl text-white absolute" style="top: 0; transform: translateY(-30px);"></i>
+                        </div>
+
+                        <!-- Media Icon Rotation (Camera, White) -->
+                        <div class="absolute inset-0 flex items-center justify-center" style="animation: rotateMedia 15s linear infinite;">
+                            <i class="fas fa-camera-retro text-xl text-white absolute" style="top: 0; transform: translateY(-30px);"></i>
+                        </div>
+
+                        <!-- Original 4 dots (simplified/smaller) - revolving -->
+                        <div class="absolute inset-0 animate-[spin_20s_linear_infinite]">
+                            <div class="absolute top-0 left-1/2 w-1.5 h-1.5 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                            <div class="absolute bottom-0 left-1/2 w-1.5 h-1.5 bg-white rounded-full -translate-x-1/2 translate-y-1/2 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                            <div class="absolute left-0 top-1/2 w-1.5 h-1.5 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
+                            <div class="absolute right-0 top-1/2 w-1.5 h-1.5 bg-white rounded-full translate-x-1/2 -translate-y-1/2 shadow-[0_0_5px_rgba(255,255,255,0.8)]"></div>
                         </div>
                     </div>
                 </div>
@@ -136,12 +351,481 @@
         </div>
     </section>
 
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-0">© 2025 Billu Rajakumar. All Rights Reserved.</p>
+    <!-- Skills Vertical Bar Graphs and Radar Chart Section -->
+    <section id="skills" class="py-24 bg-zinc-900 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl mb-4 semi-bold-text">Core Competencies</h2>
+                <!-- Subtitle (Softer White) -->
+                <p class="text-white/70 thin-text uppercase tracking-widest">Legal • Creative • Management</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-16 items-start">
+                <!-- Vertical Bar Graphs Section (All set to 95% for 'good knowledge') -->
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-12">
+                    <!-- Research & Analysis (95%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <!-- Bar Fill Percentage (White) -->
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 95%;">
+                                <span class="v-bar-percentage medium-text text-white">95%</span>
+                            </div>
+                        </div>
+                        <!-- Label (Softer White) -->
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Research & Analysis</p>
+                    </div>
+                    <!-- Drafting (95%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 95%;">
+                                <span class="v-bar-percentage medium-text text-white">95%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Drafting</p>
+                    </div>
+                    <!-- Compliance (90%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 90%;">
+                                <span class="v-bar-percentage medium-text text-white">90%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Compliance</p>
+                    </div>
+                    <!-- Client Relations (95%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 95%;">
+                                <span class="v-bar-percentage medium-text text-white">95%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Client Relations</p>
+                    </div>
+                    <!-- Project Management (100%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 100%;">
+                                <span class="v-bar-percentage medium-text text-white">100%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Project Management</p>
+                    </div>
+                    <!-- Adobe Creative (85%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 85%;">
+                                <span class="v-bar-percentage medium-text text-white">85%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Creative Suite</p>
+                    </div>
+                    <!-- Digital Tools (90%) -->
+                    <div class="v-bar-group text-center">
+                        <div class="v-bar-container mx-auto">
+                            <div class="v-bar-base"></div>
+                            <div class="v-bar-fill start-v-bar-animation" style="height: 90%;">
+                                <span class="v-bar-percentage medium-text text-white">90%</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-white/70 mt-1 uppercase max-w-[80px]">Digital Tools</p>
+                    </div>
+                </div>
+
+                <!-- Chart Container (Spider Web Visual) - White Lines -->
+                <div class="pt-16 max-w-lg mx-auto w-full">
+                    <h3 class="text-center text-xl mb-6 semi-bold-text border-b border-white/20 pb-2">Integrated Skill Profile</h3>
+                    <div class="bg-black p-4 rounded-xl border border-white/10 shadow-2xl">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Education TIMELINE REDESIGN (Animated Horizontal Bar) -->
+    <section id="experience" class="py-24 bg-black relative border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl mb-16 text-center semi-bold-text">Education & Experience</h2>
+
+            <div class="space-y-16">
+                <!-- 1. The Animated Horizontal Bar/Graph -->
+                <div class="text-center mb-16">
+                    <!-- Text (White) -->
+                    <h3 class="text-lg uppercase tracking-widest text-white mb-6 thin-text">Professional Experience Length (2012 - 2025)</h3>
+                    <div class="experience-bar-track">
+                        <div id="experience-bar-fill" class="experience-bar-fill"></div>
+
+                        <!-- Milestone Markers (White) -->
+                        <div class="milestone-marker" style="left: 0%;" data-index="0"></div>
+                        <div class="milestone-marker" style="left: 25%;" data-index="1"></div>
+                        <div class="milestone-marker" style="left: 75%;" data-index="2"></div>
+                        <div class="milestone-marker" style="left: 87.5%;" data-index="3"></div>
+                        <div class="milestone-marker" style="left: 100%;" data-index="4"></div>
+                    </div>
+                    <div class="flex justify-between max-w-5xl mx-auto px-4 md:px-0 text-white/50 text-sm font-mono">
+                        <span class="left-0">2007 (B.A. Start)</span>
+                        <span class="right-0">2027 (LL.B. End)</span>
+                    </div>
+                </div>
+
+                <!-- 2. Detailed Blocks (Animated Fade-In + Animated Bar Title) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+
+                    <!-- Item 1: Legal Internship -->
+                    <div class="animated-detail-card" data-index="5">
+                        <div class="card-title-container">
+                            <!-- Title (White) -->
+                            <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-gavel"></i> Legal Intern</h3>
+                            <div class="card-title-bar"></div>
+                        </div>
+                        <!-- Content (Softer White) -->
+                        <p class="text-sm text-white/70 mb-3">July 2025 | Advocate Chambers, Hyderabad</p>
+                        <ul class="list-disc list-inside text-white/70 font-light space-y-1 text-sm">
+                            <li>Assisted in legal research, case law analysis, and client brief preparation.</li>
+                            <li>Drafted notices, agreements, and case summaries under supervision.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 2: Law Education -->
+                    <div class="animated-detail-card" data-index="6">
+                         <div class="card-title-container">
+                             <!-- Title (White) -->
+                            <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-graduation-cap"></i> BBA.LLB (Law)</h3>
+                            <div class="card-title-bar"></div>
+                        </div>
+                        <!-- Content (Softer White) -->
+                        <p class="text-sm text-white/70 mb-3">Expected 2027 | Osmania University, Hyderabad</p>
+                        <p class="text-white/70 font-light text-sm mb-2">Completed 3rd Year (6 Semesters) in First Class.</p>
+                        <p class="text-white/50 font-light text-xs italic">Focus: Contract Law, Company Law, Documentation.</p>
+                    </div>
+
+                    <!-- Item 3: Professional Exp (Summary) -->
+                    <div class="animated-detail-card" data-index="7">
+                         <div class="card-title-container">
+                            <!-- Title (White) -->
+                            <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-video"></i> Sr. Editor & Post-Production Head</h3>
+                            <div class="card-title-bar"></div>
+                        </div>
+                        <!-- Content (Softer White) -->
+                        <p class="text-sm text-white/70 mb-3">2012 - 2025 | Various Media Companies</p>
+                        <ul class="list-disc list-inside text-white/70 font-light space-y-1 text-sm">
+                            <li>Managed teams and sensitive projects (DBS, IKEA, G20 Summit).</li>
+                            <li>Applied compliance, client relationship, and drafting skills.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 4: V.E. Education -->
+                    <div class="animated-detail-card" data-index="8">
+                        <div class="card-title-container">
+                            <!-- Title (White) -->
+                            <h3 class="text-xl font-semibold text-white flex items-center gap-3"><i class="fas fa-paint-brush"></i> Bachelor's Visual Effects</h3>
+                            <div class="card-title-bar"></div>
+                        </div>
+                        <!-- Content (Softer White) -->
+                        <p class="text-sm text-white/70 mb-3">2007 - 2011 | IACG, Hyderabad</p>
+                        <p class="text-white/70 font-light text-sm mb-2">Developed core Adobe Creative Suite expertise.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="bg-black pt-20 pb-10 border-t border-white/70 text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Header (Softer White) -->
+            <h2 class="text-3xl font-light mb-8 text-white/90">Let's Connect</h2>
+            <!-- Text (Softer White) -->
+            <p class="text-white/70 mb-10 max-w-xl mx-auto font-light">
+                Available immediately upon relocation to Preston, UK in December. Open to entry-level paralegal and legal assistant roles.
+            </p>
+
+            <!-- Contact Buttons (White Accent) -->
+            <<div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
+    <a href="mailto:billarajkumar6@gmail.com" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+        <i class="fas fa-envelope"></i> billarajkumar6@gmail.com
+    </a>
+    <a href="tel:+919573668915" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+        <i class="fas fa-phone"></i> +91-9573668915
+    </a>
+   <a href="https://www.linkedin.com/feed/" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+	<i class="fab fa-linkedin"></i> LinkedIn Profile
+</a>
+    <a href="https://drive.google.com/drive/folders/1bkl_zDt8AKuH4wdlgobjJUBu9HBJGHU6" target="_blank" class="border border-white/70 px-6 py-3 transition duration-300 flex items-center justify-center gap-2 text-white contact-btn hover:bg-white hover:text-black">
+	<i class="fab fa-google-drive"></i> View Portfolio
+</a>
+</div>
+
+            <!-- Footer Text (Faded White) -->
+            <p class="text-white/50 text-xs tracking-widest uppercase">
+                &copy; 2025 Billu Rajakumar. All Rights Reserved.
+            </p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- 1. Spider Web (Constellation) Animation Script ---
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        const particleCount = 30;
+        const connectionDistance = 150;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1;
+                this.vy = (Math.random() - 0.5) * 1;
+                this.size = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / connectionDistance})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // --- 2. Chart.js Radar Chart Configuration ---
+        const ctxChart = document.getElementById('skillsChart').getContext('2d');
+
+        const skillsChart = new Chart(ctxChart, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Data Driven',
+                    'Relationship Management',
+                    'Deadlines',
+                    'Asset Development',
+                    'Case Analysis',
+                    'Productivity '
+                ],
+                datasets: [{
+                    label: 'Proficiency Level',
+                    // All data set to 95%
+                    data: [95, 95, 95, 95, 95, 95],
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)', /* White background fill */
+                    borderColor: '#FFFFFF', /* White border line */
+                    pointBackgroundColor: '#FFFFFF', /* White points */
+                    pointBorderColor: '#FFFFFF',
+                    pointHoverBackgroundColor: '#000',
+                    pointHoverBorderColor: '#FFFFFF',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 255, 255, 0.3)', // White angle lines
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)', // White grid lines
+                        },
+                        pointLabels: {
+                            color: '#FFFFFF', // White labels
+                            font: {
+                                size: 12,
+                                family: 'Poppins',
+                                weight: '500' // medium-text equivalent
+                            }
+                        },
+                        ticks: {
+                            display: false, // Hide numeric ticks
+                            backdropColor: '#000000', // Black background for ticks if displayed
+                            color: '#FFFFFF'
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                },
+                // Add plugins for title/legend styling
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#FFFFFF',
+                            font: {
+                                size: 14,
+                                family: 'Poppins',
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        titleColor: '#000000',
+                        bodyColor: '#000000',
+                        borderColor: '#FFFFFF',
+                        borderWidth: 1,
+                        displayColors: false,
+                    }
+                }
+            }
+        });
+
+        // --- 3. Scroll Animation Logic ---
+        const expBarTrack = document.querySelector('.experience-bar-track');
+        const expBarFill = document.getElementById('experience-bar-fill');
+        const milestoneMarkers = document.querySelectorAll('.milestone-marker');
+        const detailBlocks = document.querySelectorAll('.animated-detail-card');
+        const vBarFills = document.querySelectorAll('.v-bar-fill');
+
+        let barAnimated = false; // Flag to ensure bar animation runs only once
+        let vBarsAnimated = false; // Flag to ensure vertical bar animation runs only once
+
+        /**
+         * Checks if an element is visible in the viewport.
+         * @param {Element} el The DOM element to check.
+         * @returns {boolean} True if element is in view, false otherwise.
+         */
+        function isElementInViewport(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0 &&
+                rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+                rect.right >= 0
+            );
+        }
+
+        function checkAnimations() {
+            // Animate Vertical Skill Bars (run once when the section is visible)
+            if (!vBarsAnimated && document.getElementById('skills')) {
+                if (isElementInViewport(document.getElementById('skills'))) {
+                    vBarFills.forEach(bar => {
+                        bar.classList.add('start-v-bar-animation');
+                    });
+                    vBarsAnimated = true;
+                }
+            }
+
+
+            // Animate Experience Bar and Markers (run once)
+            if (!barAnimated && expBarTrack && isElementInViewport(expBarTrack)) {
+                expBarFill.classList.add('start-fill-animation');
+                milestoneMarkers.forEach((marker, index) => {
+                    // Stagger the marker appearance slightly after the bar starts filling
+                    setTimeout(() => {
+                        marker.classList.add('in-view');
+                    }, 500 + index * 100);
+                });
+                barAnimated = true;
+            }
+
+            // Animate Detail Blocks
+            detailBlocks.forEach((item) => {
+                const dataIndex = parseInt(item.getAttribute('data-index'));
+                const delay = (dataIndex - 5) * 100; // Start delay from the 5th element in the general timeline
+
+                if (isElementInViewport(item)) {
+                    if (!item.classList.contains('in-view')) {
+                         setTimeout(() => {
+                             item.classList.add('in-view');
+                             // Activate the card title bar wipe animation
+                             const titleBar = item.querySelector('.card-title-bar');
+                             if(titleBar) {
+                                 titleBar.style.width = '100%';
+                             }
+                         }, delay);
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkAnimations);
+        window.addEventListener('resize', checkAnimations);
+
+        // Initial calls
+        window.onload = function() {
+            animate(); // Start the spider web animation
+            checkAnimations(); // Check animations on load
+        }
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
